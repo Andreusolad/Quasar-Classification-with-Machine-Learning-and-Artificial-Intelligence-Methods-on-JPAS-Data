@@ -1,45 +1,130 @@
-# Quasar Classification with Machine Learning an Artificial Intelligence methods on JPAS Data
+# Quasar Classification Using Machine Learning on JPAS Photometric Data
 
-This project focuses on classifying quasars by applying machine learning and artificial intelligence techniques—such as decision trees, random forests, and simple neural networks—using photometric data from the JPAS survey. The goal is to accurately distinguish quasars from other astronomical objects, contributing to astrophysical research and data analysis methods.
+A machine learning pipeline for classifying quasars from galaxies and stars using photometric data from the J-PAS (Javalambre Physics of the Accelerating Universe Astrophysical Survey). This project implements and compares multiple classification algorithms including Random Forest, Stochastic Gradient Descent (SGD), and Multi-Layer Perceptron (MLP) neural networks.
 
-## About Me
+## Project Overview
 
-I am passionate about applying physics and engineering principles to solve complex problems, especially in astrophysics, space technology, finance and data science. With a background in Engineering Physics, I have strong skills in mathematics, programming (Matlab and Python), and machine learning.
+Quasars are among the most distant and luminous objects in the universe, making their identification crucial for cosmological studies. This project uses supervised learning techniques to classify astronomical objects based on their spectral features, achieving strong performance metrics:
 
-My interests include the intersection of artificial intelligence and finance, focusing on portfolio optimization using reinforcement learning and neural networks. I also enjoy learning new languages and exploring how technology can improve decision-making across domains.
+- **Random Forest**: F1-score ~0.96, Precision ~0.97
+- **SGD Classifier**: Optimized with hyperparameter tuning
+- **Neural Network (MLP)**: Trained with class balancing for improved quasar detection
 
-I aim to work on practical projects that bridge theory and real-world applications, particularly in space systems, machine learning, and financial analysis.
+### Key Features
+
+- Multi-algorithm comparison (Random Forest, SGD, MLP)
+- Comprehensive hyperparameter tuning using GridSearchCV and Optuna
+- Feature importance analysis to identify key spectral characteristics
+- Handling of class imbalance through weighting strategies
+- Evaluation on both mock and real JPAS data
+
+## Technical Details
+
+### Data Processing
+- **Input**: 57-band photometric data from J-PAS survey
+- **Features**: Flux measurements, flux errors, coordinates (RA/DEC), morphological type, and auxiliary photometry
+- **Classes**: Quasar (QSO), Galaxy, Star
+- **Preprocessing**: Null value handling, feature scaling (StandardScaler), class balancing
+
+### Models Implemented
+
+1. **Random Forest Classifier**
+   - Hyperparameter optimization via grid search
+   - Feature importance analysis using Mean Decrease in Impurity (MDI)
+   - Class weighting to handle imbalanced data
+
+2. **Stochastic Gradient Descent (SGD)**
+   - Multiple loss functions tested (log_loss, hinge, modified_huber)
+   - L1/L2/ElasticNet regularization
+   - Adaptive learning rate with early stopping
+
+3. **Multi-Layer Perceptron (MLP)**
+   - Architecture: 2 hidden layers (100, 50 neurons)
+   - Oversampling strategy for minority class (quasars)
+   - Weight-based feature importance analysis
+
+### Evaluation Metrics
+- Precision (Purity)
+- Recall (Completeness)
+- F1-score
+- Matthews Correlation Coefficient (MCC)
+- Confusion matrices
 
 ## Project Structure
-
-- `data/` - Contains the JPAS photometric dataset (NOT AVAILABLE)
-- `notebooks/` - Jupyter notebooks with data exploration and model training
+```
+├── classifier_pef2.ipynb      # Main notebook with full pipeline
+├── data/                      # Dataset directory (not included)
+├── README.md                  # Project documentation
+```
 
 ### Data Availability
 
-The dataset used in this project (JPAS photometric data) is **not included** in this repository due to data access restrictions and is not publicly available. To work with the data, you need to request access from the JPAS collaboration or use your own authorized dataset.
+**Important**: The J-PAS photometric dataset used in this project is **not publicly available** and is not included in this repository due to collaboration agreements. To replicate this work:
 
+- Request access through the [J-PAS collaboration](https://www.j-pas.org/)
+- Use your own authorized astronomical survey data
+- Adapt the preprocessing pipeline to your dataset format
 
 ## Requirements
-
-- Python 3.x
-- scikit-learn
-- numpy
-- pandas
-- matplotlib
-
+```
+python>=3.8
+scikit-learn
+numpy
+pandas
+matplotlib
+astropy
+optuna
+```
 
 ## Usage
 
-1. Prepare the JPAS dataset in the `data/` folder (ONLY IF YOU ALREADY HAVE IT)
-2. Run the preprocessing scripts in `scripts/`.
-3. Train models using the notebooks or scripts.
-4. Evaluate and visualize results.
+1. **Data Preparation** (if you have authorized access):
+```python
+   # Place J-PAS files in data/ directory:
+   # - Mock_train_FLUX+NOISE.npy
+   # - Mock_train_PROPS.csv
+   # - Mock_valid_FLUX+NOISE.npy
+   # - Mock_valid_PROPS.csv
+   # - etc.
+```
+
+2. **Run the Classification Pipeline**:
+   Open and execute `classifier_pef2.ipynb` sequentially:
+   - Data loading and preprocessing
+   - Model training and hyperparameter tuning
+   - Model evaluation and comparison
+   - Feature importance analysis
+
+3. **Experiment with Models**:
+   Modify hyperparameters in the training cells to optimize performance for your specific dataset.
+
+## Results Highlights
+
+- Successfully classified quasars with **>96% F1-score** using Random Forest
+- Identified key spectral features through importance analysis
+- Demonstrated effective handling of class imbalance (quasars represent ~5% of data)
+- Validated performance on real J-PAS observations
+
+## Future Improvements
+
+- Implement deep learning architectures (CNNs for spectral data)
+- Add cross-validation for more robust performance estimates
+- Explore ensemble methods combining multiple classifiers
+- Optimize for real-time classification on large datasets
+
+## About the Author
+
+Physics Engineering student with strong interests in astrophysics, machine learning, and data science. Experienced in applying ML techniques to complex scientific problems, with a focus on space technology and financial applications.
+
+**Skills**: Python, Machine Learning (scikit-learn, TensorFlow), Data Analysis, Astrophysics, MATLAB
 
 ## Contact
 
-Feel free to reach out if you want to collaborate or learn more!
-andreusolad@gmail.com / andreu.sola@estudiantat.upc.edu
+**Andreu Solà**  
+📧 andreusolad@gmail.com | andreu.sola@estudiantat.upc.edu  
+💼 [LinkedIn] www.linkedin.com/in/andreu-solà-i-dagas 
+🔗 [GitHub] https://github.com/Andreusolad
 
-*Created by Andreu Solà*
+---
 
+*This project was developed as part of my Physics Engineering degree, applying machine learning techniques to astrophysical data analysis.*
